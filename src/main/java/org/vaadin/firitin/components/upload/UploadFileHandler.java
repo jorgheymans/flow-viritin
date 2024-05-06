@@ -24,7 +24,6 @@ import com.vaadin.flow.component.DomEvent;
 import com.vaadin.flow.component.EventData;
 import com.vaadin.flow.component.Tag;
 import com.vaadin.flow.component.UI;
-import com.vaadin.flow.component.page.PendingJavaScriptResult;
 import com.vaadin.flow.component.shared.SlotUtils;
 import com.vaadin.flow.component.upload.UploadI18N;
 import com.vaadin.flow.function.SerializableConsumer;
@@ -39,18 +38,18 @@ import com.vaadin.flow.server.VaadinSession;
 import com.vaadin.flow.shared.Registration;
 import elemental.json.JsonObject;
 import elemental.json.JsonType;
-import org.vaadin.firitin.fluency.ui.FluentComponent;
-import org.vaadin.firitin.fluency.ui.FluentHasEnabled;
-import org.vaadin.firitin.fluency.ui.FluentHasSize;
-import org.vaadin.firitin.fluency.ui.FluentHasStyle;
-
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.io.Serializable;
 import java.net.URLDecoder;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Objects;
+import org.vaadin.firitin.fluency.ui.FluentComponent;
+import org.vaadin.firitin.fluency.ui.FluentHasEnabled;
+import org.vaadin.firitin.fluency.ui.FluentHasSize;
+import org.vaadin.firitin.fluency.ui.FluentHasStyle;
 
 /**
  * A vaadin-upload component that just passes the input stream (and name and
@@ -72,7 +71,7 @@ public class UploadFileHandler extends Component implements FluentComponent<Uplo
     private int maxFiles = 1;
 
     @FunctionalInterface
-    public interface FileHandler {
+    public interface FileHandler extends Serializable {
 
         /**
          * This method is called by the framework when a new file is being
@@ -103,7 +102,7 @@ public class UploadFileHandler extends Component implements FluentComponent<Uplo
      * An interface accepting file uploads.
      */
     @FunctionalInterface
-    public interface CallbackFileHandler {
+    public interface CallbackFileHandler extends Serializable {
 
         /**
          * This method is called by the framework when a new file is being
